@@ -1,0 +1,36 @@
+First, player will enter a class.  This will define their ability scores, and give them a couple miscellaneous items.
+The player will then buy some essential items (but not a weapon!) from some vendors in the starting market.
+
+Player will talk to some NPCs and get some information.
+
+Player will exit the market and find their way to a quest-giving NPC.
+
+NPCs are tiered in this way:
+Tier 0: Information only
+Tier 1: Shop NPC
+Tier 2: Quest NPC
+Tier 3: Companion NPC
+Tier 4: Boss NPC
+
+Items will be stored somehow
+
+The first quest is randomly chosen, as is the design of the town.  
+
+The aim is to create a worldbuilder that uses a seed to generate the same world each time, and to minimize the size of savegames.
+
+All entities should be generated from the world seed based on the location where they spawn, and be saved and generated through a cascading series
+of types.  These would follow as such:
+- Race (random, weighted by location)
+- Ethnicity (random, weighted by location)
+- Sex (pure random)
+- Appearance (random, weighted by ethnicity-specific table)
+- Height (Sliding scale from 1 to 10, short to tall)
+- Body type (Sliding scale from 1 to 10, skinny to fat)
+- Profession (From a list, can be limited by location)
+- Personality (Sliding scale from 1 to 10 rating the NPC's hospitality or "niceness")
+- History (all NPCs start with no history; this tracks the player's interactions with them)
+
+The player character follows a similar generation, and cannot be edited by the player at any point throughout the game.
+
+The player will progress through a series of quests, leading up to a final boss.  Everything along the way is randomly generated, and the player
+can choose to either end their character's story or continue with a fresh world.
