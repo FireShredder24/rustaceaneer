@@ -1,13 +1,15 @@
-use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
+use std::fs::File;
+use std::path::Path;
+use std::io::prelude::*;
+use std::io;
 
 fn main() {
     println!("Hello, kind player!\nWelcome to Rustaceoneer!\nChoose your class!");
-    
-    let mut class = String::new();
 
-    fn read_pop(mut s: &mut String) -> &mut std::string::String {
+    fn read_pop() -> std::string::String {
+	let mut s = String::new();
 	io::stdin()
 	    .read_line(&mut s)
 	    .expect("Failed to read line");
@@ -17,9 +19,7 @@ fn main() {
 	return s;
     }
 
-    read_pop(&mut class);
-
-    if class == "fighter" {
+    if read_pop() == "fighter" {
     	println!("Nice choice!  (that's the only one implemented, lol)\n");
 	let con = 12;
 	let str = 15;
@@ -34,8 +34,7 @@ fn main() {
     fn ask(q: String) -> bool {
 	println!("{}", q);
 	let mut a = String::new();
-	read_pop(&mut a);
-	if a == "y" {
+	if read_pop() == "y" {
 	    return true;
 	} else {
 	    return false;
@@ -47,4 +46,20 @@ fn main() {
     if ask("Do you want to kill the guy?".to_string()) {
 	println!("cyka blyat!");
     }
+
+    let path = Path::new("testsave.txt");
+    let display = path.display();
+
+    
+    let mut file = match File::create(&path) {
+        Err(why) => panic!("couldn't create {}: {}", display, why),
+	Ok(file) => file,
+    };
+
+    let text = read_pop();
+
+    match file.write_all(text.as_bytes()) {
+	Err(why) => panic!("couldn't write to {}: {}", display, why),
+	Ok(_) => println!("successfully wrote to {}", display),
+    };
 }
